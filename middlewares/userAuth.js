@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import { MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 dotenv.config();
-console.log(process.env.LINK);
 
 const authUser = async (username, password, done) => {
     const client = new MongoClient(process.env.LINK);

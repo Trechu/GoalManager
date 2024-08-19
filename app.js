@@ -2,7 +2,7 @@ import express from 'express'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy as LocalStrategy } from 'passport-local'
-import authUser from './authenticaton/userAuth.js'
+import authUser from './middlewares/userAuth.js'
 
 const app = express();
 const PORT = 3001;
@@ -17,7 +17,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-authUser("Jane", "Doe");
+passport.use(new LocalStrategy(authUser));
+
+passport.serializeUser((user, done) => {
+    done(null,user);
+})
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+})
+
+const checkAuthenticated = (request, response, next) => {
+    if(request.isAuthenticated()){
+        return next();
+    }
+    response.redirect('/');
+}
 
 app.get('/', function (request, response) {
     response.render('index.ejs');
