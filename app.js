@@ -4,9 +4,13 @@ import session from 'express-session'
 import { Strategy as LocalStrategy } from 'passport-local'
 import authUser from './middlewares/userAuth.js'
 
+import RegisterRouter from './routers/register.js';
+import UserRouter from './routers/user_page.js';
+
 const app = express();
 const PORT = 3001;
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended: false}))
 
 app.use(session({
     secret: "secret",
@@ -27,16 +31,24 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 })
 
-const checkAuthenticated = (request, response, next) => {
-    if(request.isAuthenticated()){
-        return next();
+const checkLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) { 
+         return res.redirect("/user");
     }
-    response.redirect('/');
+    next();
 }
 
-app.get('/', function (request, response) {
+app.get('/', checkLoggedIn, function (request, response) {
     response.render('index.ejs');
 });
+
+app.post('/' , passport.authenticate('local', {
+    successRedirect: "/user",
+    failureRedirect: "/",
+}))
+
+app.use(RegisterRouter);
+app.use(UserRouter);
 
 app.listen(PORT, (error) =>{
     if(!error)

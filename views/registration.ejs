@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Goal Manager</title>
+</head>
+<body style="background-color: #0D001A;">
+    
+    <div class="text-white" style="text-align: center; width: 100%; margin-top: 70px;">
+        <h2 style="margin-left: auto; -webkit-text-stroke-width: 0.4px;
+        -webkit-text-stroke-color: black;">Plase fill in the following fields in order to create an account</h2>
+
+        <div style="padding: 1%; margin: auto; margin-top: 50px; width: 20%; height: 350px; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+            <label for="username" style="align-self: start; font-size: large;">Username</label>
+            <br/>
+            <input name="username" style="width: 90%; background-color: #0D001A; margin-bottom: 25px; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+            <br/>
+            <label for="password" style="font-size: large;">Password</label>
+            <br/>
+            <input name="password" style="width: 90%; background-color: #0D001A; margin-bottom: 25px; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+            <br/>
+            <label for="email" style="font-size: large;">Email</label>
+            <br/>
+            <input name="email" style="width: 90%; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+            <br/>
+            <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 40px; width: 90%; border-radius: 10px;" onclick="handle_registration()">Register an account</button>
+        </div>
+
+            <form action="/" method="GET">
+                <button type="submit" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 40px; width: 20%; border-radius: 10px;">Back to login page</button>
+            </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        function handle_registration(){
+            var usernameValue = document.querySelector('[name="username"]').value;
+            var passwordValue = document.querySelector('[name="password"]').value;
+            var emailValue = document.querySelector('[name="email"]').value;
+            if(usernameValue=="" || passwordValue=="" || emailValue==""){
+                window.alert("None of the fields can remain empty");
+            } else {
+                fetch("http://localhost:3001/register", {
+                method: "POST",
+                body: JSON.stringify({
+                    username: usernameValue,
+                    password: passwordValue,
+                    email: emailValue
+                }),
+                headers : {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            }   
+        }
+        
+    </script>
+</body>
+</html>

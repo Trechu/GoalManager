@@ -9,23 +9,29 @@ const authUser = async (username, password, done) => {
         await client.connect();
 
         // Change accordingly to db structure
-        const db = client.db('GOALS');
+        const db = client.db(process.env.DBNAME);
         const collection = db.collection('user');
         
-        const query = {name: username};
+        const query = {username: username};
         const entry = await collection.findOne(query);
-        console.log(entry);
-        bcrypt.compare(password, entry.password, (err, result) => {
-            if (err) {
-                console.error('Error comparing passwords:', err);
-                return;
-            }
-            if (result) {
-                return done(null, entry.name);
-            } else {
-                return done(null, false);
-            }
-        });
+        if(entry != null){
+            bcrypt.compare(password, entry.password, (err, result) => {
+                if (err) {
+                    console.error('Error comparing passwords:', err);
+                    return;
+                }
+                if (result) {
+                    console.log('Login successfull');
+                    return done(null, {username: entry.username});
+                } else {
+                    console.log('Login unsuccessfull');
+                    return done(null, false);
+                }
+            });
+        } else {
+            console.log('Login unsuccessfull');
+            return done(null,false);
+        }
     } catch(err) {
         console.error(err);
     } finally {

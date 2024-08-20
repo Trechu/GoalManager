@@ -16,20 +16,24 @@
         -webkit-text-stroke-color: black;">Welcome to the Goal Manager Project app</h2>
 
         <div style="padding: 1%; margin: auto; margin-top: 50px; width: 20%; height: 300px; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-            <label for="username" style="align-self: start; font-size: large;">Username</label>
-            <br/>
-            <input name="username" style="width: 90%; background-color: #0D001A; margin-bottom: 25px; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-            <br/>
-            <label for="password" style="font-size: large;">Password</label>
-            <br/>
-            <input name="password" style="width: 90%; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-            <br/>
-            <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 40px; width: 90%; border-radius: 10px;">Login</button>
+            <form action="/" method="POST">
+                <label for="username" style="align-self: start; font-size: large;">Username</label>
+                <br/>
+                <input name="username" style="width: 90%; background-color: #0D001A; margin-bottom: 25px; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                <br/>
+                <label for="password" style="font-size: large;">Password</label>
+                <br/>
+                <input name="password" style="width: 90%; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                <br/>
+                <button type="submit" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 40px; width: 90%; border-radius: 10px;">Login</button>
+            </form>
         </div>
 
         <div style="padding: 1%; margin: auto; margin-top: 30px; width: 20%; height: 100px; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-            <p> Are you new here?</p>
-            <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: -5px; width: 90%; border-radius: 10px;">Register</button>
+            <form action="/register" method="GET">
+                <p> Are you new here?</p>
+                <button type="submit" class="btn btn-sm btn-primary" style="font-size: large; margin-top: -5px; width: 90%; border-radius: 10px;">Register</button>
+            </form>
         </div>
 
     </div>
