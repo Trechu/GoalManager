@@ -3,6 +3,7 @@ import passport from 'passport'
 import session from 'express-session'
 import { Strategy as LocalStrategy } from 'passport-local'
 import authUser from './middlewares/userAuth.js'
+import path from 'path'
 
 import RegisterRouter from './routers/register.js';
 import UserRouter from './routers/user_page.js';
@@ -47,6 +48,7 @@ app.post('/' , passport.authenticate('local', {
     failureRedirect: "/",
 }))
 
+app.use(express.static(path.join('./scripts')));
 app.use(RegisterRouter);
 app.use(UserRouter);
 
