@@ -131,11 +131,9 @@
 
                             <div class="project-card"
                                 style="text-align: left; display: flex; flex-direction: row; width: 95%; height: 6em; margin: auto; margin-bottom: 1.5em; background-color: #332340; border-radius: 25px; padding: 1em; text-overflow: ellipsis; overflow: hidden;">
-                                <% var key1=Object.keys(project)[1]; %>
-                                    <% var key2=Object.keys(project)[2]; %>
                                         <div style="width: 25%; padding: 1%; margin: auto;">
                                             <span style="font-size: 20px;">
-                                                <%= project[key1] %>
+                                                <%= project["project name"] %>
                                             </span>
                                         </div>
 
@@ -143,7 +141,7 @@
 
                                         <div style="width: 44%; padding: 1%; margin: auto;">
                                             <span style="font-size: 16px;">
-                                                <%= project[key2] %>
+                                                <%= project["project description"] %>
                                             </span>
                                         </div>
 
@@ -169,15 +167,15 @@
 
                 <div id="opened-project">
                     <div class="nav-btn"
-                        style="margin: auto; margin-top: 50%; margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px;"
+                        style=" margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px;"
                         onclick="close_project()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 12px; margin-left: 9px">
                             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
                           </svg>
                           
                     </div>
-                    <h1 id="project-title">Test project</h1>
-                    <span id="project-description">Hi, this is a description of a test project</span>
+                    <h1 id="project-title"></h1>
+                    <span id="project-description"></span>
                     <hr style="background-color: aliceblue;" />
                     <div id="project-goals">
 
