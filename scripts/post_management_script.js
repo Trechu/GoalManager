@@ -15,6 +15,14 @@ function close_project(){
     hide_elem('opened-project');
 }
 
+function create_divider(){
+    var divider = document.createElement('div');
+    divider.style.borderLeft = '1px solid #493c55';
+    divider.style.height = '100%';
+    divider.style.margin = 'auto';
+    return divider;
+}
+
 function create_step_element(step){
     var stepDiv = document.createElement('div');
     stepDiv.style.textAlign = 'left';
@@ -32,51 +40,89 @@ function create_step_element(step){
     stepDiv.style.marginBottom = '5px';
     stepDiv.style.textAlign = 'center';
 
+    var stepBlank1 = document.createElement('div');
+    stepBlank1.style.width = '5%';
+    stepBlank1.style.margin = 'auto';
+
+    stepDiv.appendChild(stepBlank1);
+
+    stepDiv.appendChild(create_divider());
+
     var stepName = document.createElement('div');
     stepName.style.width = '15%';
     stepName.style.margin = 'auto';
+    stepName.style.whiteSpace = 'nowrap';
+    stepName.style.textOverflow = 'ellipsis';
+    stepName.style.overflow = 'hidden';
     var stepText1 = document.createElement('span');
     stepText1.style.fontSize = '15px';
     stepText1.innerHTML = step["step name"];
     stepName.appendChild(stepText1);
     stepDiv.appendChild(stepName);
 
+    stepDiv.appendChild(create_divider());
+
     var stepDesc = document.createElement('div');
     stepDesc.style.width = '25%';
     stepDesc.style.margin = 'auto';
+    stepDesc.style.whiteSpace = 'nowrap';
+    stepDesc.style.textOverflow = 'ellipsis';
+    stepDesc.style.overflow = 'hidden';
     var stepText2 = document.createElement('span');
     stepText2.style.fontSize = '15px';
     stepText2.innerHTML = step["step description"];
     stepDesc.appendChild(stepText2);
     stepDiv.appendChild(stepDesc);
 
+    stepDiv.appendChild(create_divider());
+
     var stepStatus = document.createElement('div');
-    stepStatus.style.width = '20%';
+    stepStatus.style.width = '15%';
     stepStatus.style.margin = 'auto';
+    stepStatus.style.whiteSpace = 'nowrap';
+    stepStatus.style.textOverflow = 'ellipsis';
+    stepStatus.style.overflow = 'hidden';
     var stepText3 = document.createElement('span');
     stepText3.style.fontSize = '15px';
     stepText3.innerHTML = step["status"];
     stepStatus.appendChild(stepText3);
     stepDiv.appendChild(stepStatus);
 
+    stepDiv.appendChild(create_divider());
+
     var stepDate = document.createElement('div');
     stepDate.style.width = '20%';
     stepDate.style.margin = 'auto';
+    stepDate.style.whiteSpace = 'nowrap';
+    stepDate.style.textOverflow = 'ellipsis';
+    stepDate.style.overflow = 'hidden';
     var stepText4 = document.createElement('span');
     stepText4.style.fontSize = '15px';
     stepText4.innerHTML = step["due date"];
     stepDate.appendChild(stepText4);
     stepDiv.appendChild(stepDate);
 
+    stepDiv.appendChild(create_divider());
+
     var stepCost = document.createElement('div');
-    stepCost.style.width = '20%';
+    stepCost.style.width = '15%';
     stepCost.style.margin = 'auto';
+    stepCost.style.whiteSpace = 'nowrap';
+    stepCost.style.textOverflow = 'ellipsis';
+    stepCost.style.overflow = 'hidden';
     var stepText5 = document.createElement('span');
     stepText5.style.fontSize = '15px';
     stepText5.innerHTML = step["cost"];
     stepCost.appendChild(stepText5);
     stepDiv.appendChild(stepCost);
 
+    stepDiv.appendChild(create_divider());
+
+    var stepBlank2 = document.createElement('div');
+    stepBlank2.style.width = '5%';
+    stepBlank2.style.margin = 'auto';
+
+    stepDiv.appendChild(stepBlank2);
 
     return stepDiv;
 }
@@ -87,6 +133,12 @@ function create_goal_element(goal){
     var goalLabelDiv = document.createElement('div');
     goalLabelDiv.style.display = 'flex';
     goalLabelDiv.style.textAlign = 'center';
+    goalLabelDiv.style.width = '95%';
+    goalLabelDiv.style.margin = 'auto';
+
+    var goalBlank1 = document.createElement('div');
+    goalBlank1.style.width = '5%';
+    goalLabelDiv.appendChild(goalBlank1);
 
     var goalLabel = document.createElement('div');
     goalLabel.style.width = '15%';
@@ -97,10 +149,10 @@ function create_goal_element(goal){
     goalLabelDiv.appendChild(goalLabel);
 
     var goalLabelDesc = document.createElement('div');
-    goalLabelDesc.style.width = '25%';
+    goalLabelDesc.style.width = '20%';
     goalLabelDesc.style.padding = '1%'
     var goalText2 = document.createElement('span');
-    goalText2.innerHTML = "To do";
+    goalText2.innerHTML = "Task";
     goalLabelDesc.appendChild(goalText2);
     goalLabelDiv.appendChild(goalLabelDesc);
 
@@ -121,12 +173,16 @@ function create_goal_element(goal){
     goalLabelDiv.appendChild(goalLabelDate);
 
     var goalLabelCost = document.createElement('div');
-    goalLabelCost.style.width = '20%';
+    goalLabelCost.style.width = '15%';
     goalLabelCost.style.padding = '1%'
     var goalText5 = document.createElement('span');
     goalText5.innerHTML = "Cost";
     goalLabelCost.appendChild(goalText5);
     goalLabelDiv.appendChild(goalLabelCost);
+
+    var goalBlank2 = document.createElement('div');
+    goalBlank2.style.width = '5%';
+    goalLabelDiv.appendChild(goalBlank2);
     
     goalDiv.appendChild(goalLabelDiv);
     
