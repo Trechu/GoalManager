@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { request, response } from 'express';
 import { MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 dotenv.config();
