@@ -262,6 +262,14 @@ function close_project_addition_menu(){
 function handle_post_creation(username){
     var name_data = find_elem('proj-name');
     var desc_data = find_elem('proj-desc');
+    if(name_data.value.length <= 4) {
+        window.alert('Please provide a name for the project (at least 5 characters and/or numbers)');
+        return;
+    }
+    if(desc_data.value.length <= 4) {
+        window.alert('Please provide a brief description of the project (at least 5 characters and/or numbers)');
+        return;
+    }
     fetch("http://localhost:3001/user/create", {
         method: "POST",
         body: JSON.stringify({username: username, name: name_data.value, description: desc_data.value})

@@ -65,7 +65,7 @@
     <div class="text-white" style="text-align: center; width: 100%;" id="overall-container">
 
         <div class="d-flex flex-row">
-            <div style="padding: 1%; margin-left: 1em; margin-top: -20px; width: 5em; height: 44em; margin-top: 70px;">
+            <div style="padding: 1%; margin-left: 1em; width: 5em; height: 44em; margin-top: 40px;">
                 <div class="d-flex flex-column bd-highlight mb-3" style="height: 50%;">
                     <div class="nav-btn"
                         style="margin-top: 0; margin-bottom: 0; width: 50px; height: 50px; border-radius: 5px;">
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div id="viewing-section"
-                style="padding: 1%; margin-left: 1em; margin-top: 70px; width: 87em; height: 44em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); text-align: left; overflow-y: scroll;">
+                style="padding: 1%; margin-left: 1em; margin-top: 40px; width: 87em; height: 44em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); text-align: left; overflow-y: scroll;">
 
                 <div id="project-viewer">
                     <h1>Your projects</h1>
@@ -180,15 +180,17 @@
                 </div>
 
                 <div id="opened-project">
-                    <div class="nav-btn"
-                        style=" margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px;"
+                    <div style="display: flex;">
+                        <h1 id="project-title" style="width: 90%;"></h1>
+                        <div class="nav-btn"
+                        style=" margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px; margin: auto;"
                         onclick="close_project()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 12px; margin-left: 9px">
                             <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                          </svg>
-                          
+                        </svg>
+                        
                     </div>
-                    <h1 id="project-title"></h1>
+                    </div>
                     <span id="project-description"></span>
                     <hr style="background-color: aliceblue;" />
                     <div id="project-goals">
