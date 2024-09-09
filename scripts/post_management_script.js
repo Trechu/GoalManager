@@ -259,5 +259,15 @@ function close_project_addition_menu(){
     find_elem('overlay').style.display='none';
 }
 
+function handle_post_creation(username){
+    var name_data = find_elem('proj-name');
+    var desc_data = find_elem('proj-desc');
+    fetch("http://localhost:3001/user/create", {
+        method: "POST",
+        body: JSON.stringify({username: username, name: name_data.value, description: desc_data.value})
+    }).then(response => {
+        location.reload();
+    });}
+
 close_project_addition_menu();
 hide_elem('opened-project');

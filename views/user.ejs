@@ -197,11 +197,23 @@
             </div>
             <div id="overlay" style="width: 100vw; height: 100vh; z-index: 99; background-color: rgba(0, 0, 0, .5); position: absolute; padding: 5%;">
                 <div style="margin-left: 0; width: 4em; padding: 1%; border-radius: 5px;" class="close-btn" onclick="close_project_addition_menu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                     </svg>
                 </div>
-                
+                <div class="text-white" style="text-align: center; width: 100%; margin-top: 70px;">            
+                    <div style="padding: 1%; margin: auto; margin-top: 50px; width: 50em; height: 20em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                        <label for="name" style="align-self: start; font-size: large;">Project name</label>
+                        <br/>
+                        <input id="proj-name" autocomplete="off" type="text" name="name" style="width: 20em; background-color: #0D001A; margin-bottom: 25px; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                        <br/>
+                        <label for="description" style="font-size: large;">Project description</label>
+                        <br/>
+                        <textarea id="proj-desc" name="description" rows="3" style="resize: none; width: 40em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);" ></textarea>
+                        <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 30px; width: 30%; border-radius: 10px;" onclick="handle_post_creation('<%= username %>')">Create new project</button>
+                    </div>
+            
+                </div>
             </div>
         </div>
     </div>
