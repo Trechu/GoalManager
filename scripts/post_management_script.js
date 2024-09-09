@@ -1,3 +1,11 @@
+function handle_logout() {
+    fetch("http://localhost:3001/logout", {
+        method: "POST"
+    }).then(response => {
+        location.reload();
+    });
+}
+
 function find_elem(id){
     return document.getElementById(id);
 }
@@ -91,6 +99,9 @@ function create_step_element(step){
     stepStatusBlock.style.height = '90%';
     stepStatusBlock.style.margin = 'auto';
     stepStatusBlock.style.borderRadius = '10px';
+    stepStatusBlock.style.whiteSpace = 'nowrap';
+    stepStatusBlock.style.textOverflow = 'ellipsis';
+    stepStatusBlock.style.overflow = 'hidden';
     
     switch(step["status"]){
         case "Completed":
@@ -240,4 +251,13 @@ function open_project(project){
 
 }
 
+function open_project_addition_menu(){
+    find_elem('overlay').style.display='block';
+}
+
+function close_project_addition_menu(){
+    find_elem('overlay').style.display='none';
+}
+
+close_project_addition_menu();
 hide_elem('opened-project');
