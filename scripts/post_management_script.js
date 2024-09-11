@@ -18,37 +18,17 @@ function show_elem(id){
     document.getElementById(id).style.display='block';
 }
 
-function close_project(){
-    show_elem('project-viewer');
-    hide_elem('opened-project');
-}
-
 function open_project(project){
     var data = JSON.parse(project);
     window.location.assign('http://localhost:3001/user/' + data._id);
 }
 
-function render_project(data){
-    hide_elem('project-viewer');
-    show_elem('opened-project');
-    find_elem('project-title').innerHTML = data["project name"];
-    find_elem('project-description').innerHTML = data["project description"];
-    var goals = find_elem('project-goals');
-    // Clear previous entires
-    goals.innerHTML = '';
-    for(let goal of data.goals){
-        goals.appendChild(create_goal_element(goal));
-    }
-}
-
 function open_project_addition_menu(){
-    find_elem('overlay').style.display='block';
-    find_elem('post-addition').style.display='block';
+    show_elem('overlay');
 }
 
 function close_project_addition_menu(){
-    find_elem('post-addition').style.display='none';
-    find_elem('overlay').style.display='none';
+    hide_elem('overlay');
 }
 
 function handle_post_creation(username){
