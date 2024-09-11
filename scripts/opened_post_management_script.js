@@ -2,7 +2,7 @@ function handle_logout() {
     fetch("http://localhost:3001/logout", {
         method: "POST"
     }).then(response => {
-        location.reload();
+        window.location.assign('http://localhost:3001/');
     });
 }
 

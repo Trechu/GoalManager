@@ -12,6 +12,24 @@ const checkAuthenticated = (request, response, next) => {
     response.redirect("/")
 }
 
+const checkValidUser = async (request, response, next) => {
+    if (request.isAuthenticated()) {
+        const client = new MongoClient(process.env.LINK);
+        await client.connect();
+        
+        // Change accordingly to db structure
+        const db = client.db(process.env.DBNAME);
+        const collection = db.collection('project');
+        
+        const document = await collection.findOne({ _id: new ObjectId(request.params.postId) });
+        await client.close();
+        if (document.members.includes(request.user.username)){
+            return next()
+        }
+    }
+    response.redirect('back');
+}
+
 async function findUsersProjects(username) {
     const projects = [];
     const client = new MongoClient(process.env.LINK);
@@ -46,7 +64,7 @@ router.get('/user', checkAuthenticated, async (request, response) => {
     response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username });
 })
 
-router.get('/user/:postId', checkAuthenticated, async (request, response) => {
+router.get('/user/:postId', checkValidUser, async (request, response) => {
     response.render("post.ejs", {project: await findProject(request.params.postId)});
 })
 
