@@ -1,5 +1,5 @@
 import express, { request, response } from 'express';
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -29,9 +29,26 @@ async function findUsersProjects(username) {
     return projects;
 }
 
+async function findProject(project_id){
+    const client = new MongoClient(process.env.LINK);
+    await client.connect();
+
+    // Change accordingly to db structure
+    const db = client.db(process.env.DBNAME);
+    const collection = db.collection('project');
+
+    const document = await collection.findOne({ _id: new ObjectId(project_id) });
+    await client.close();
+    console.log(document);
+    return document;
+}
 
 router.get('/user', checkAuthenticated, async (request, response) => {
     response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username });
+})
+
+router.get('/user/:postId', checkAuthenticated, async (request, response) => {
+    response.render("post.ejs", {project: await findProject(request.params.postId)});
 })
 
 router.post("/logout", (request, response) => {
