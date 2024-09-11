@@ -159,80 +159,10 @@ function create_step_element(step){
 
 function create_goal_element(goal){
     var goalDiv = document.createElement('div');
-
-    var goalLabelDiv = document.createElement('div');
-    goalLabelDiv.style.display = 'flex';
-    goalLabelDiv.style.textAlign = 'center';
-    goalLabelDiv.style.width = '95%';
-    goalLabelDiv.style.margin = 'auto';
-
-    var goalBlank1 = document.createElement('div');
-    goalBlank1.style.width = '5%';
-    goalLabelDiv.appendChild(goalBlank1);
-
-    var goalLabel = document.createElement('div');
-    goalLabel.style.width = '15%';
-    goalLabel.style.padding = '1%'
-    var goalText1 = document.createElement('span');
-    goalText1.innerHTML = goal["goal name"];
-    goalLabel.appendChild(goalText1);
-    goalLabelDiv.appendChild(goalLabel);
-
-    var goalLabelDesc = document.createElement('div');
-    goalLabelDesc.style.width = '20%';
-    goalLabelDesc.style.padding = '1%'
-    var goalText2 = document.createElement('span');
-    goalText2.innerHTML = "Task";
-    goalLabelDesc.appendChild(goalText2);
-    goalLabelDiv.appendChild(goalLabelDesc);
-
-    var goalLabelStatus = document.createElement('div');
-    goalLabelStatus.style.width = '20%';
-    goalLabelStatus.style.padding = '1%'
-    var goalText3 = document.createElement('span');
-    goalText3.innerHTML = "Status";
-    goalLabelStatus.appendChild(goalText3);
-    goalLabelDiv.appendChild(goalLabelStatus);
-
-    var goalLabelDate = document.createElement('div');
-    goalLabelDate.style.width = '20%';
-    goalLabelDate.style.padding = '1%'
-    var goalText4 = document.createElement('span');
-    goalText4.innerHTML = "Due date";
-    goalLabelDate.appendChild(goalText4);
-    goalLabelDiv.appendChild(goalLabelDate);
-
-    var goalLabelCost = document.createElement('div');
-    goalLabelCost.style.width = '15%';
-    goalLabelCost.style.padding = '1%'
-    var goalText5 = document.createElement('span');
-    goalText5.innerHTML = "Cost";
-    goalLabelCost.appendChild(goalText5);
-    goalLabelDiv.appendChild(goalLabelCost);
-
-    var goalBlank2 = document.createElement('div');
-    goalBlank2.style.width = '5%';
-    goalLabelDiv.appendChild(goalBlank2);
-    
-    goalDiv.appendChild(goalLabelDiv);
     
     for(let step of goal.steps){
         goalDiv.appendChild(create_step_element(step));    
     }
-
-    var poststep = document.createElement('div');
-    poststep.classList.add('nav-btn');
-    poststep.style.padding = '0.2%';
-    poststep.style.width = '2.5em';
-    poststep.style.height = '2.5em';
-    poststep.style.borderRadius = '5px';
-    poststep.innerHTML = `<svg style="margin-left: 8px; margin-top: 6px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>`;
-    poststep.style.marginLeft = '3%';
-    poststep.onclick = open_step_addition_menu;
-
-    goalDiv.appendChild(poststep);
 
     return goalDiv;
 }

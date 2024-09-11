@@ -39,7 +39,6 @@ async function findProject(project_id){
 
     const document = await collection.findOne({ _id: new ObjectId(project_id) });
     await client.close();
-    console.log(document);
     return document;
 }
 
