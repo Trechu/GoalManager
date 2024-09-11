@@ -126,6 +126,14 @@
                     <hr style="background-color: aliceblue;" />
                     <div id="project-goals">
                     </div>
+                    <% for(goal of project.goals){ %>
+                        <div>
+                            <div style="display: flex; text-align: center; width: 95%; margin: auto;">
+                                <div style="width: 5%;"></div>
+                                <div style="width: 15%; padding: 1%;"><%= goal["goal name"] %></div>
+                            </div>
+                        </div>
+                    <% } %>
                 </div>
             </div>
             <div id="overlay" style="width: 100vw; height: 100vh; z-index: 99; background-color: rgba(0, 0, 0, .5); position: absolute; padding: 5%;">
