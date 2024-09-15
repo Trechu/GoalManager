@@ -6,6 +6,10 @@ function handle_logout() {
     });
 }
 
+function to_user(){
+    window.location.assign('http://localhost:3001/user');
+}
+
 function find_elem(id){
     return document.getElementById(id);
 }
@@ -32,7 +36,7 @@ function create_step_request(project, goal_name){
     fetch("http://localhost:3001/user/create/step", {
         method: "POST",
         body: JSON.stringify({project_id: project_data["_id"], goal_name: JSON.parse(goal_name), step_name: find_elem('step-name').value, step_description: find_elem('step-desc').value,
-    step_status: find_elem('step-status').value, step_date: find_elem('step-date').value, step_cost: find_elem('step-cost').value})
+        step_status: find_elem('step-status').value, step_date: find_elem('step-date').value, step_cost: find_elem('step-cost').value})
     }).then(response => {
         window.location.reload();
     });
