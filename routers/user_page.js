@@ -102,4 +102,36 @@ router.post('/user/create', async (request, response) => {
     })
 })
 
+router.post('/user/create/step', async (request, response) => {
+    request.on('data', async function (data) {
+        const client = new MongoClient(process.env.LINK);
+        try {
+            await client.connect();
+            var requestBody = JSON.parse(data.toString('utf8'));
+            const step = {};
+            step["step name"] = requestBody.step_name;
+            step["step description"] = requestBody.step_description;
+            step["status"] = requestBody.step_status;
+            step["due date"] = requestBody.step_date;
+            step["cost"] = requestBody.step_cost;
+
+            const db = client.db(process.env.DBNAME);
+            const collection = db.collection('project');
+            const document = await collection.findOne({ _id: new ObjectId(requestBody.project_id) });
+            var new_goals = document.goals;
+            for(let goal of new_goals){
+                if(goal["goal name"] == requestBody.goal_name){
+                    goal["steps"].push(step);
+                }
+            }
+            await collection.updateOne({ _id: new ObjectId(requestBody.project_id) }, {$set: {goals: new_goals}});
+        } catch (err) {
+            console.error(err);
+        } finally {
+            await client.close();
+            response.send();
+        }
+    })
+})
+
 export default router;
