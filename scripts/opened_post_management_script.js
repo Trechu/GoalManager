@@ -59,26 +59,28 @@ function colorize(){
 
 colorize();
 
-function open_step_addition_menu() {
-    show_elem('overlay');
+
+function set_goal_name(goal_name){
+    document.querySelector('#stepModalTitle').innerHTML = goal_name;
 }
 
-function create_step_request(project_id, goal_name) {
+function prepare_value(value){
+    return JSON.parse(JSON.stringify(value));
+}
+
+function create_step_request(project_id) {
 
     fetch("http://localhost:3001/user/create/step", {
         method: "POST",
         body: JSON.stringify({
-            project_id: JSON.parse(project_id), goal_name: JSON.parse(goal_name), step_name: find_elem('step-name').value, step_description: find_elem('step-desc').value,
-            step_status: find_elem('step-status').value, step_date: find_elem('step-date').value, step_cost: find_elem('step-cost').value
+            project_id: JSON.parse(project_id), goal_name: document.querySelector('#stepModalTitle').innerHTML, step_name: prepare_value(find_elem('step-name').value), step_description: prepare_value(find_elem('step-desc').value),
+            step_status: prepare_value(find_elem('step-status').value), step_date: prepare_value(find_elem('step-date').value), step_cost: prepare_value(find_elem('step-cost').value)
         })
     }).then(response => {
         window.location.reload();
     });
 };
 
-function close_step_addition_menu() {
-    hide_elem('overlay');
-}
 
 function close_project() {
     window.location.assign('http://localhost:3001/user/');

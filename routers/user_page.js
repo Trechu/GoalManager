@@ -124,6 +124,7 @@ router.post('/user/create/step', async (request, response) => {
                     goal["steps"].push(step);
                 }
             }
+            new_goals = JSON.parse(JSON.stringify(new_goals));
             await collection.updateOne({ _id: new ObjectId(requestBody.project_id) }, {$set: {goals: new_goals}});
         } catch (err) {
             console.error(err);
