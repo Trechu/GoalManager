@@ -26,8 +26,6 @@ function open_step_addition_menu(project, goal_name){
     show_elem('overlay');
     var project_data = JSON.parse(project);
     var goal_name = JSON.parse(goal_name);
-    console.log(project_data);
-    console.log(goal_name);
 }
 
 function create_step_request(project, goal_name){
