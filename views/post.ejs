@@ -72,6 +72,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            padding: 0.5em;
         }
 
         [data-status="Completed"]{
@@ -84,6 +85,10 @@
 
         [data-status="Suspended"]{
             background-color: darkred;
+        }
+        
+        [color-scheme=]{
+
         }
     </style>
 </head>
@@ -177,21 +182,22 @@
                         </div>
                     </div>
                     <hr style="background-color: aliceblue;" />
+                    <% let i = 0 %>
                     <% for(goal of project.goals){ %>
                         <div>
-                            <div style="display: flex; text-align: center; width: 95%; margin: auto;">
-                                <div style="width: 5%;"></div>
-                                <div style="width: 15%; padding: 1%;"><%= goal["goal name"] %></div>
-                                <div style="width: 20%; padding: 1%;">Task</div>
-                                <div style="width: 20%; padding: 1%;">Status</div>
+                            <div style="display: flex; text-align: center; width: 95%; margin: auto; margin-bottom: 15px; font-size: 18px;">
+                                <div style="width: 2%; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="fancy-bar"></div>
+                                <div style="width: 16%; padding: 1%;"><%= goal["goal name"] %></div>
+                                <div style="width: 25%; padding: 1%;">Task</div>
+                                <div style="width: 17%; padding: 1%;">Status</div>
                                 <div style="width: 20%; padding: 1%;">Due date</div>
-                                <div style="width: 15%; padding: 1%;">Cost</div>
-                                <div style="width: 5%;"></div>
+                                <div style="width: 18%; padding: 1%;">Cost</div>
+                                <div style="width: 2%; background-color: #332340; border-top-right-radius: 10px; border-bottom-right-radius: 10px;"></div>
                             </div>
                             <% for(step of goal.steps){ %>
-                                <div id="stepDiv" style="text-align: center; display: flex; flex-direction: row; width: 95%; height: 3em; margin: auto; background-color: #332340; padding: 0.5em; text-overflow: ellipsis; overflow: hidden; border-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
+                                <div id="stepDiv" style="text-align: left; display: flex; flex-direction: row; width: 95%; height: 3.5em; margin: auto; background-color: #332340; padding: 0.5em; text-overflow: ellipsis; overflow: hidden; border-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
                                     <div style="width: 5%; margin: auto;">
-                                        <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2em; border-radius: 5px; margin: auto;" class="nav-btn-alt">
+                                        <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2em; border-radius: 5px; margin: auto; text-align: center;" class="nav-btn-alt">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                                                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                             </svg>
@@ -202,8 +208,8 @@
                                     <div class="divider"></div>
                                     <div class="wrapped" style="width: 25%; margin: auto; font-size: 15px;"><%= step["step description"] %></div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto;">
-                                        <div class="wrapped" style="width: 85%; height: 90%; margin: auto; border-radius: 10px;" data-status="<%= step["status"] %>">
+                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 14px; margin-top: -5px;">
+                                        <div class="wrapped" style="width: 90%; height: 2.5em; margin: auto; border-radius: 10px; text-align: center;" data-status="<%= step["status"] %>">
                                             <%= step["status"] %>
                                         </div>
                                     </div>
@@ -215,16 +221,17 @@
                                     <div style="width: 5%; margin: auto;"></div>
                                 </div>
                             <% } %>
-                            <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2.5em; border-radius: 5px; margin-left: 3%;" class="nav-btn" onclick="open_step_addition_menu('<%= JSON.stringify(project) %>', '<%= JSON.stringify(goal[`goal name`]) %>')">
+                            <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2.5em; border-radius: 5px; margin-left: 3%; margin-bottom: 30px;" class="nav-btn" onclick="open_step_addition_menu()">
                                 <svg style="margin-left: 9px; margin-top: 7px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>
                             </div>
                         </div>
+                    <% i++ %>
                     <% } %>
                 </div>
             </div>
-            <div id="overlay" style="width: 100vw; height: 100vh; z-index: 99; background-color: rgba(0, 0, 0, .5); position: absolute; padding: 5%;">
+            <div id="overlay" style="visibility: hidden; transition: opacity 1s ease-out; width: 100vw; height: 100vh; z-index: 99; background-color: rgba(0, 0, 0, .5); position: absolute; padding: 5%;">
                 <div id="step-addition">
                     <div style="margin-left: 0; width: 4em; padding: 1%; border-radius: 5px; z-index: 99; position: absolute;"  class="close-btn" onclick="close_step_addition_menu()" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -257,7 +264,7 @@
                             <br/>
                             <input id="step-cost" autocomplete="off" type="text" name="cost" style="width: 8em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
                             <br/>
-                            <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 1em; width: 30%; border-radius: 10px;" onclick="create_step_request('<%= JSON.stringify(project) %>', '<%= JSON.stringify(goal[`goal name`]) %>')">Add step</button>
+                            <button type="button" class="btn btn-sm btn-primary" style="font-size: large; margin-top: 1em; width: 30%; border-radius: 10px;" onclick="create_step_request('<%= JSON.stringify(project[`_id`]) %>', '<%= JSON.stringify(goal[`goal name`]) %>')">Add step</button>
                         </div>
                 
                     </div>
