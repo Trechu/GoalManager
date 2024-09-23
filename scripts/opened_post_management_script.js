@@ -1,11 +1,11 @@
-function find_id(){
+function find_id() {
     const url = window.location.href;
-    return url.substring(url.lastIndexOf('/')+1, url.length);
+    return url.substring(url.lastIndexOf('/') + 1, url.length);
 }
 
-function determine_seed(){
-    var seed =  find_id();
-    while(seed.length < 6){
+function determine_seed() {
+    var seed = find_id();
+    while (seed.length < 6) {
         seed = seed + seed;
     }
     return seed;
@@ -40,7 +40,7 @@ function show_elem(id) {
 function get_color(iteration) {
     const letters = '0123456789ABCDEF';
     var color = '#';
-    while(seed.length < 6){
+    while (seed.length < 6) {
         seed = seed + seed;
     }
     function random(seed) {
@@ -48,12 +48,12 @@ function get_color(iteration) {
         return x - Math.floor(x);
     }
     for (var i = 0; i < 6; i++) {
-        color += letters[((Math.floor(random(parseInt(seed[i]) + iteration*2) * 16))) % 16];
+        color += letters[((Math.floor(random(parseInt(seed[i]) + iteration * 2) * 16))) % 16];
     }
     return color;
 }
 
-function colorize(){
+function colorize() {
     let i = 1;
     document.querySelectorAll('.fancy-bar').forEach((element) => {
         element.style.backgroundColor = get_color(i);
@@ -61,23 +61,32 @@ function colorize(){
     });
 }
 
-colorize();
 
-
-function set_goal_name(goal_name){
+function set_goal_name(goal_name) {
     document.querySelector('#stepModalTitle').innerHTML = goal_name;
 }
 
-function prepare_value(value){
+function handle_search_bar() {
+    let data = find_elem('goal-search').value;
+    document.querySelectorAll('.goal-view').forEach((goal) => {
+        if (goal.getAttribute('goal-name').toLowerCase().includes(data.toLowerCase())) {
+            goal.style.display = 'block';
+        } else {
+            goal.style.display = 'none';
+        }
+    })
+}
+
+function prepare_value(value) {
     var JSONString = JSON.stringify(value);
     var EscapedJSONString = JSONString.replace(/\\n/g, "\\n")
-                                      .replace(/\\'/g, "\\'")
-                                      .replace(/\\"/g, '\\"')
-                                      .replace(/\\&/g, "\\&")
-                                      .replace(/\\r/g, "\\r")
-                                      .replace(/\\t/g, "\\t")
-                                      .replace(/\\b/g, "\\b")
-                                      .replace(/\\f/g, "\\f");
+        .replace(/\\'/g, "\\'")
+        .replace(/\\"/g, '\\"')
+        .replace(/\\&/g, "\\&")
+        .replace(/\\r/g, "\\r")
+        .replace(/\\t/g, "\\t")
+        .replace(/\\b/g, "\\b")
+        .replace(/\\f/g, "\\f");
     return JSON.parse(EscapedJSONString);
 }
 
@@ -94,7 +103,7 @@ function create_step_request() {
     });
 };
 
-function create_goal_request(){
+function create_goal_request() {
     fetch("http://localhost:3001/user/create/goal", {
         method: "POST",
         body: JSON.stringify({
@@ -108,3 +117,5 @@ function create_goal_request(){
 function close_project() {
     window.location.assign('http://localhost:3001/user/');
 }
+
+colorize();
