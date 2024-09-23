@@ -21,8 +21,17 @@ const checkValidUser = async (request, response, next) => {
         const db = client.db(process.env.DBNAME);
         const collection = db.collection('project');
         
+        if(!ObjectId.isValid(request.params.postId)){
+            response.redirect('back');
+            return;
+        }; 
+
         const document = await collection.findOne({ _id: new ObjectId(request.params.postId) });
         await client.close();
+        if(document == undefined){
+            response.redirect('back');
+            return;
+        }
         if (document.members.includes(request.user.username)){
             return next()
         }
@@ -124,7 +133,31 @@ router.post('/user/create/step', async (request, response) => {
                     goal["steps"].push(step);
                 }
             }
-            new_goals = JSON.parse(JSON.stringify(new_goals));
+            await collection.updateOne({ _id: new ObjectId(requestBody.project_id) }, {$set: {goals: new_goals}});
+        } catch (err) {
+            console.error(err);
+        } finally {
+            await client.close();
+            response.send();
+        }
+    })
+})
+
+router.post('/user/create/goal', async (request, response) => {
+    request.on('data', async function (data) {
+        const client = new MongoClient(process.env.LINK);
+        try {
+            await client.connect();
+            var requestBody = JSON.parse(data.toString('utf8'));
+            const goal = {};
+            goal["goal name"] = requestBody.goal_name;
+            goal["steps"] = [];
+
+            const db = client.db(process.env.DBNAME);
+            const collection = db.collection('project');
+            const document = await collection.findOne({ _id: new ObjectId(requestBody.project_id) });
+            var new_goals = document.goals;
+            new_goals.push(goal);
             await collection.updateOne({ _id: new ObjectId(requestBody.project_id) }, {$set: {goals: new_goals}});
         } catch (err) {
             console.error(err);

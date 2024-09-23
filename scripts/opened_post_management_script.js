@@ -1,6 +1,10 @@
-function determine_seed(){
+function find_id(){
     const url = window.location.href;
-    var seed =  url.substring(url.lastIndexOf('/')+1, url.length);
+    return url.substring(url.lastIndexOf('/')+1, url.length);
+}
+
+function determine_seed(){
+    var seed =  find_id();
     while(seed.length < 6){
         seed = seed + seed;
     }
@@ -44,7 +48,7 @@ function get_color(iteration) {
         return x - Math.floor(x);
     }
     for (var i = 0; i < 6; i++) {
-        color += letters[((Math.floor(random(parseInt(seed[i])) * 16)) + iteration*2 ) % 16];
+        color += letters[((Math.floor(random(parseInt(seed[i]) + iteration*2) * 16))) % 16];
     }
     return color;
 }
@@ -77,12 +81,12 @@ function prepare_value(value){
     return JSON.parse(EscapedJSONString);
 }
 
-function create_step_request(project_id) {
+function create_step_request() {
 
     fetch("http://localhost:3001/user/create/step", {
         method: "POST",
         body: JSON.stringify({
-            project_id: JSON.parse(project_id), goal_name: document.querySelector('#stepModalTitle').innerHTML, step_name: prepare_value(find_elem('step-name').value), step_description: prepare_value(find_elem('step-desc').value),
+            project_id: find_id(), goal_name: document.querySelector('#stepModalTitle').innerHTML, step_name: prepare_value(find_elem('step-name').value), step_description: prepare_value(find_elem('step-desc').value),
             step_status: prepare_value(find_elem('step-status').value), step_date: prepare_value(find_elem('step-date').value), step_cost: prepare_value(find_elem('step-cost').value)
         })
     }).then(response => {
@@ -90,6 +94,16 @@ function create_step_request(project_id) {
     });
 };
 
+function create_goal_request(){
+    fetch("http://localhost:3001/user/create/goal", {
+        method: "POST",
+        body: JSON.stringify({
+            project_id: find_id(), goal_name: prepare_value(find_elem('goal-name').value)
+        })
+    }).then(response => {
+        window.location.reload();
+    });
+}
 
 function close_project() {
     window.location.assign('http://localhost:3001/user/');

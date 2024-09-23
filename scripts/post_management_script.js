@@ -22,14 +22,6 @@ function open_project(id){
     window.location.assign('http://localhost:3001/user/' + id);
 }
 
-function open_project_addition_menu(){
-    show_elem('overlay');
-}
-
-function close_project_addition_menu(){
-    hide_elem('overlay');
-}
-
 function handle_post_creation(username){
     var name_data = find_elem('proj-name');
     var desc_data = find_elem('proj-desc');
@@ -47,5 +39,3 @@ function handle_post_creation(username){
     }).then(response => {
         location.reload();
     });}
-
-close_project_addition_menu();
