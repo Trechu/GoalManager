@@ -22,21 +22,21 @@ const checkValidUser = async (request, response, next) => {
         const collection = db.collection('project');
         
         if(!ObjectId.isValid(request.params.postId)){
-            response.redirect('back');
+            response.redirect('/');
             return;
         }; 
 
         const document = await collection.findOne({ _id: new ObjectId(request.params.postId) });
         await client.close();
         if(document == undefined){
-            response.redirect('back');
+            response.redirect('/');
             return;
         }
         if (document.members.includes(request.user.username)){
             return next()
         }
     }
-    response.redirect('back');
+    response.redirect('/');
 }
 
 async function findUsersProjects(username) {

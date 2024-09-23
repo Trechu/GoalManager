@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <hr style="background-color: aliceblue;" />
-                    <div style="display: flex; flex-direction: row;">
+                    <div class="wrapped" style="display: flex; flex-direction: row;">
                         <div class="btn-add" style="user-select: none; width: 7em; margin-bottom: 1em; margin-left: 1em; padding: 0.5em; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 2 px rgb(56, 55, 55); background-color: rgb(174, 157, 91);" data-toggle="modal" data-target="#goalModal">
                             Add Goal
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -3px; margin-left: 5px;" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
@@ -213,8 +213,8 @@
                     <% let i = 0 %>
                     <% for(goal of project.goals){ %>
                         <div class="goal-view" goal-name="<%= goal["goal name"] %>">
-                            <div style="display: flex; text-align: center; width: 95%; margin: auto; margin-bottom: 15px; font-size: 18px;">
-                                <div data-toggle="collapse" href="#collapse<%= i %>" role="button" aria-expanded="false" aria-controls="collapse<%= i %>" style="width: 2%; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="fancy-bar">
+                            <div style="display: flex; text-align: center; width: 95%; margin: auto; margin-bottom: 15px; font-size: 18px;" data-toggle="collapse" href="#collapse<%= i %>" role="button" aria-expanded="false" aria-controls="collapse<%= i %>">
+                                <div style="width: 2%; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="fancy-bar">
                                     <div class="arrow-down" style="margin-top: 25px; margin-left: 7px;"></div>
                                 </div>
                                 <div style="width: 16%; padding: 1%;"><%= goal["goal name"] %></div>
@@ -235,19 +235,19 @@
                                         </div>
                                     </div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;"><%= step["step name"] %></div>
+                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["step name"] %>"><%= step["step name"] %></div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 25%; margin: auto; font-size: 15px;"><%= step["step description"] %></div>
+                                    <div class="wrapped" style="width: 25%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["step description"] %>"><%= step["step description"] %></div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 14px; margin-top: -5px;">
+                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 14px; margin-top: -5px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["status"] %>">
                                         <div class="wrapped" style="width: 90%; height: 2.5em; margin: auto; border-radius: 10px; text-align: center;" data-status="<%= step["status"] %>">
                                             <%= step["status"] %>
                                         </div>
                                     </div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 20%; margin: auto; font-size: 15px;"><%= step["due date"] %></div>
+                                    <div class="wrapped" style="width: 20%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["due date"] %>"><%= step["due date"] %></div>
                                     <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;"><%= step["cost"] %></div>
+                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["cost"] %>"><%= step["cost"] %></div>
                                     <div class="divider"></div>
                                     <div style="width: 5%; margin: auto;"></div>
                                 </div>
