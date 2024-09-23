@@ -18,9 +18,8 @@ function show_elem(id){
     document.getElementById(id).style.display='block';
 }
 
-function open_project(project){
-    var data = JSON.parse(project);
-    window.location.assign('http://localhost:3001/user/' + data._id);
+function open_project(id){
+    window.location.assign('http://localhost:3001/user/' + id);
 }
 
 function open_project_addition_menu(){

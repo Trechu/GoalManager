@@ -65,7 +65,16 @@ function set_goal_name(goal_name){
 }
 
 function prepare_value(value){
-    return JSON.parse(JSON.stringify(value));
+    var JSONString = JSON.stringify(value);
+    var EscapedJSONString = JSONString.replace(/\\n/g, "\\n")
+                                      .replace(/\\'/g, "\\'")
+                                      .replace(/\\"/g, '\\"')
+                                      .replace(/\\&/g, "\\&")
+                                      .replace(/\\r/g, "\\r")
+                                      .replace(/\\t/g, "\\t")
+                                      .replace(/\\b/g, "\\b")
+                                      .replace(/\\f/g, "\\f");
+    return JSON.parse(EscapedJSONString);
 }
 
 function create_step_request(project_id) {
