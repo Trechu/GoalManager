@@ -78,16 +78,23 @@ async function getNotifications(username){
     return document["notifications"];
 }
 
-async function hasNotifications(username){
-    return (await getNotifications(username)).length > 0;
+async function hasNewNotifications(username){
+    let status = false;
+    (await getNotifications(username)).forEach((notif) => {
+        if(!(notif.read)){
+            status = true;
+            return;
+        }
+    })
+    return status;
 }
 
 router.get('/user', checkAuthenticated, async (request, response) => {
-    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username, hasNotification: await hasNotifications(request.user.username)});
+    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username, hasNotification: await hasNewNotifications(request.user.username)});
 })
 
 router.get('/user/:postId', checkValidUser, async (request, response) => {
-    response.render("post.ejs", {project: await findProject(request.params.postId), hasNotification: await hasNotifications(request.user.username)});
+    response.render("post.ejs", {project: await findProject(request.params.postId), hasNotification: await hasNewNotifications(request.user.username)});
 })
 
 router.post("/logout", (request, response) => {
@@ -176,6 +183,41 @@ router.post('/user/create/goal', async (request, response) => {
         } finally {
             await client.close();
             response.send();
+        }
+    })
+})
+
+router.post('/user/add/member', async (request, response) => {
+    request.on('data', async function (data) {
+        const client = new MongoClient(process.env.LINK);
+        try {
+            var requestBody = JSON.parse(data.toString('utf8'));
+            
+            await client.connect();
+            const db = client.db(process.env.DBNAME);
+            const collection = db.collection(process.env.USERCOLLECTION);
+            const document = await collection.findOne({ username: requestBody.member_name });
+            
+            if(document==undefined){
+                response.send('User not found');
+                await client.close();
+                return;
+            }
+            
+            const notif = {};
+            const date = new Date();
+            notif["description"] = "You have been invited to join " + requestBody.project_name;
+            notif["date"] = (new Date()).toLocaleDateString() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+            notif["read"] = false;
+            notif["project id"] = requestBody.project_id; 
+
+            var new_notifs = document.notifications;
+            new_notifs.push(notif);
+            await collection.updateOne({ username: requestBody.member_name }, {$set: {notifications: new_notifs}});
+            await client.close();
+            response.send('OK');
+        } catch (err) {
+            console.error(err);
         }
     })
 })

@@ -114,6 +114,25 @@ function create_goal_request() {
     });
 }
 
+function add_member_request(project_name) {
+    fetch("http://localhost:3001/user/add/member", {
+        method: "POST",
+        body: JSON.stringify({
+            project_id: find_id(), member_name: prepare_value(find_elem('member-name').value), project_name: project_name
+        })
+    }).then(response => response.text())
+    .then(data => {
+        switch(data){
+            case 'User not found':
+                window.alert('User not found');
+                break;
+            default:
+                window.alert('Request sent successfully');
+                break;
+        }
+    });
+}
+
 function close_project() {
     window.location.assign('http://localhost:3001/user/');
 }

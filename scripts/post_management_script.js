@@ -24,11 +24,11 @@ function open_project(id){
 
 function handle_search_bar() {
     let data = find_elem('post-search').value;
-    document.querySelectorAll('.project-view').forEach((goal) => {
-        if (goal.getAttribute('project-name').toLowerCase().includes(data.toLowerCase())) {
-            goal.style.display = 'block';
+    document.querySelectorAll('.project-view').forEach((project) => {
+        if (project.getAttribute('project-name').toLowerCase().includes(data.toLowerCase())) {
+            project.style.display = 'block';
         } else {
-            goal.style.display = 'none';
+            project.style.display = 'none';
         }
     })
 }
