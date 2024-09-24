@@ -19,9 +19,8 @@ router.post('/register', (request, response) => {
         try {
             await client.connect();
 
-            // Change accordingly to db structure
             const db = client.db(process.env.DBNAME);
-            const collection = db.collection('user');
+            const collection = db.collection(process.env.USERCOLLECTION);
 
             const query1 = { name: requestBody.username };
             const entry1 = await collection.findOne(query1);
@@ -39,10 +38,10 @@ router.post('/register', (request, response) => {
                     const userObject = {
                         username: requestBody.username,
                         password: hashedPassword,
-                        email: requestBody.email
+                        email: requestBody.email,
+                        notifications: []
                     }
                     if (userObject.password != undefined && userObject.password != null && userObject.password != "") {
-                        const collection = db.collection('user');
                         await collection.insertOne(userObject);
                     };
 

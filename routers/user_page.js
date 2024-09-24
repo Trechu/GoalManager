@@ -17,9 +17,8 @@ const checkValidUser = async (request, response, next) => {
         const client = new MongoClient(process.env.LINK);
         await client.connect();
         
-        // Change accordingly to db structure
         const db = client.db(process.env.DBNAME);
-        const collection = db.collection('project');
+        const collection = db.collection(process.env.PROJECTCOLLECTION);
         
         if(!ObjectId.isValid(request.params.postId)){
             response.redirect('/');
@@ -44,9 +43,8 @@ async function findUsersProjects(username) {
     const client = new MongoClient(process.env.LINK);
     await client.connect();
 
-    // Change accordingly to db structure
     const db = client.db(process.env.DBNAME);
-    const collection = db.collection('project');
+    const collection = db.collection(process.env.PROJECTCOLLECTION);
 
     const cursor = await collection.find({ members: username });
     while (await cursor.hasNext()) {
@@ -60,21 +58,36 @@ async function findProject(project_id){
     const client = new MongoClient(process.env.LINK);
     await client.connect();
 
-    // Change accordingly to db structure
     const db = client.db(process.env.DBNAME);
-    const collection = db.collection('project');
+    const collection = db.collection(process.env.PROJECTCOLLECTION);
 
     const document = await collection.findOne({ _id: new ObjectId(project_id) });
     await client.close();
     return document;
 }
 
+async function getNotifications(username){
+    const client = new MongoClient(process.env.LINK);
+    await client.connect();
+
+    const db = client.db(process.env.DBNAME);
+    const collection = db.collection(process.env.USERCOLLECTION);
+
+    const document = await collection.findOne({ username: username });
+    await client.close();
+    return document["notifications"];
+}
+
+async function hasNotifications(username){
+    return (await getNotifications(username)).length > 0;
+}
+
 router.get('/user', checkAuthenticated, async (request, response) => {
-    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username });
+    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username, hasNotification: await hasNotifications(request.user.username)});
 })
 
 router.get('/user/:postId', checkValidUser, async (request, response) => {
-    response.render("post.ejs", {project: await findProject(request.params.postId)});
+    response.render("post.ejs", {project: await findProject(request.params.postId), hasNotification: await hasNotifications(request.user.username)});
 })
 
 router.post("/logout", (request, response) => {
@@ -98,9 +111,8 @@ router.post('/user/create', async (request, response) => {
             project['members'] = [requestBody.username];
             project['goals'] = [];
     
-            // Change accordingly to db structure
             const db = client.db(process.env.DBNAME);
-            const collection = db.collection('project');
+            const collection = db.collection(process.env.PROJECTCOLLECTION);
             await collection.insertOne(project);
         } catch (err) {
             console.error(err)
@@ -125,7 +137,7 @@ router.post('/user/create/step', async (request, response) => {
             step["cost"] = requestBody.step_cost;
 
             const db = client.db(process.env.DBNAME);
-            const collection = db.collection('project');
+            const collection = db.collection(process.env.PROJECTCOLLECTION);
             const document = await collection.findOne({ _id: new ObjectId(requestBody.project_id) });
             var new_goals = document.goals;
             for(let goal of new_goals){
@@ -154,7 +166,7 @@ router.post('/user/create/goal', async (request, response) => {
             goal["steps"] = [];
 
             const db = client.db(process.env.DBNAME);
-            const collection = db.collection('project');
+            const collection = db.collection(process.env.PROJECTCOLLECTION);
             const document = await collection.findOne({ _id: new ObjectId(requestBody.project_id) });
             var new_goals = document.goals;
             new_goals.push(goal);

@@ -22,6 +22,17 @@ function open_project(id){
     window.location.assign('http://localhost:3001/user/' + id);
 }
 
+function handle_search_bar() {
+    let data = find_elem('post-search').value;
+    document.querySelectorAll('.project-view').forEach((goal) => {
+        if (goal.getAttribute('project-name').toLowerCase().includes(data.toLowerCase())) {
+            goal.style.display = 'block';
+        } else {
+            goal.style.display = 'none';
+        }
+    })
+}
+
 function handle_post_creation(username){
     var name_data = find_elem('proj-name');
     var desc_data = find_elem('proj-desc');
