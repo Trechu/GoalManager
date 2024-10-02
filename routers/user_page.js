@@ -78,23 +78,26 @@ async function getNotifications(username){
     return document["notifications"];
 }
 
-async function hasNewNotifications(username){
-    let status = false;
-    (await getNotifications(username)).forEach((notif) => {
+function hasNewNotifications(notif_array){
+    for(let notif of notif_array){
         if(!(notif.read)){
-            status = true;
-            return;
+            return true;
         }
-    })
-    return status;
+    }
+    return false;
 }
 
 router.get('/user', checkAuthenticated, async (request, response) => {
-    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username, hasNotification: await hasNewNotifications(request.user.username)});
+    response.render("user.ejs", { projects: await findUsersProjects(request.user.username), username: request.user.username, hasNotification: hasNewNotifications(await getNotifications(request.user.username))});
 })
 
 router.get('/user/:postId', checkValidUser, async (request, response) => {
-    response.render("post.ejs", {project: await findProject(request.params.postId), hasNotification: await hasNewNotifications(request.user.username)});
+    response.render("post.ejs", {project: await findProject(request.params.postId), hasNotification: hasNewNotifications(await getNotifications(request.user.username))});
+})
+
+router.get('/user/panel/notifications', checkAuthenticated, async (request, response) => {
+    let notif_array = await getNotifications(request.user.username);
+    response.render("notifications.ejs", {notifications: notif_array, hasNotification: hasNewNotifications(notif_array)});
 })
 
 router.post("/logout", (request, response) => {
@@ -206,6 +209,7 @@ router.post('/user/add/member', async (request, response) => {
             
             const notif = {};
             const date = new Date();
+            notif["notif_id"] = new ObjectId();
             notif["description"] = "You have been invited to join " + requestBody.project_name;
             notif["date"] = (new Date()).toLocaleDateString() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
             notif["read"] = false;

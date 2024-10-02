@@ -25,6 +25,10 @@ function to_user() {
     window.location.assign('http://localhost:3001/user');
 }
 
+function to_notif() {
+    window.location.assign('http://localhost:3001/user/panel/notifications');
+}
+
 function find_elem(id) {
     return document.getElementById(id);
 }

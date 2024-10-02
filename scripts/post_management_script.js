@@ -6,6 +6,10 @@ function handle_logout() {
     });
 }
 
+function to_notif() {
+    window.location.assign('http://localhost:3001/user/panel/notifications');
+}
+
 function find_elem(id){
     return document.getElementById(id);
 }
