@@ -49,6 +49,7 @@ app.post('/' , passport.authenticate('local', {
 }))
 
 app.use(express.static(path.join('./scripts')));
+app.use(express.static(path.join('./styles')));
 app.use(RegisterRouter);
 app.use(UserRouter);
 

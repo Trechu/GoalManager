@@ -10,67 +10,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Goal Manager</title>
-    <style>
-        #viewing-section {
-            --sb-track-color: #17101d;
-            --sb-thumb-color: #332340;
-            --sb-size: 12px;
-        }
-
-        #viewing-section::-webkit-scrollbar {
-            width: var(--sb-size);
-        }
-
-        #viewing-section::-webkit-scrollbar-track {
-            background: var(--sb-track-color);
-            border-radius: 18px;
-        }
-
-        #viewing-section::-webkit-scrollbar-thumb {
-            background: var(--sb-thumb-color);
-            border-radius: 18px;
-            border: 1px solid #232E33;
-        }
-
-        @supports not selector(::-webkit-scrollbar) {
-            #viewing-section {
-                scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-            }
-        }
-
-        .nav-btn:hover {
-            background-color: #332340;
-        }
-
-        .nav-btn-active {
-            background-color: #332340;
-        }
-
-        .open-btn {
-            background-color: #1E1526;
-        }
-
-        .open-btn:hover {
-            background-color: #130d18;
-        }
-
-        .close-btn {
-            background-color: rgb(51,35,64, 0.9);
-        }
-
-        .close-btn:hover {
-            background-color: rgb(81,56,102, 0.9);
-        }
-
-        [notif-status="true"] {
-            background-color: red;
-            display: block;
-        }
-
-        [notif-status="false"] {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="/details.css"></link>
 </head>
 
 <body style="background-color: #0D001A;">
@@ -78,51 +18,7 @@
     <div class="text-white" style="text-align: center; width: 100%;" id="overall-container">
 
         <div class="d-flex flex-row">
-            <div style="padding: 1%; margin-left: 1em; width: 5em; height: 44em; margin-top: 40px;">
-                <div class="d-flex flex-column bd-highlight mb-3" style="height: 50%;">
-                    <div class="nav-btn-active"
-                        style="margin-top: 0; margin-bottom: 0; width: 50px; height: 50px; border-radius: 5px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                            class="bi bi-grid-1x2-fill" viewBox="0 0 16 16" style="margin-top: 10px;">
-                            <path
-                                d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z" />
-                        </svg>
-                    </div>
-                    <div class="nav-btn" onclick="to_notif()"
-                        style="margin-top: 50%; margin-bottom: 0; width: 50px; height: 50px; border-radius: 5px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                            class="bi bi-envelope-fill" viewBox="0 0 16 16" style="margin-top: 10px;">
-                            <path
-                                d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z" />
-                        </svg>
-                        <div notif-status="<%= hasNotification %>" style="position: absolute; margin-left: 30px; margin-top: -12px; border-radius: 50%; width: 0.8em; height: 0.8em;">
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-content-end flex-wrap" style="height: 50%;">
-                    <div class="nav-btn"
-                        style="margin: auto; margin-bottom: 0; width: 50px; height: 50px; border-radius: 5px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-                            class="bi bi-person-circle" viewBox="0 0 16 16" style="margin-top: 5px;">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path fill-rule="evenodd"
-                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                        </svg>
-                    </div>
-                    <div class="nav-btn"
-                        style="margin: auto; margin-top: 50%; margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px;"
-                        onclick="handle_logout()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
-                            class="bi bi-box-arrow-left" viewBox="0 0 16 16"
-                            style="margin-top: 7px; margin-left: -8px;">
-                            <path fill-rule="evenodd"
-                                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
-                            <path fill-rule="evenodd"
-                                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
+            <%- include('sidebar.ejs'); %>
             <div id="viewing-section"
                 style="padding: 1%; margin-left: 1em; margin-top: 40px; width: 87em; height: 44em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); text-align: left; overflow-y: scroll;">
 
