@@ -126,14 +126,7 @@ function add_member_request(project_name) {
         })
     }).then(response => response.text())
     .then(data => {
-        switch(data){
-            case 'User not found':
-                window.alert('User not found');
-                break;
-            default:
-                window.alert('Request sent successfully');
-                break;
-        }
+        window.alert(data);
     });
 }
 

@@ -21,3 +21,14 @@ function hide_elem(id){
 function show_elem(id){
     document.getElementById(id).style.display='block';
 }
+
+function handle_search_bar() {
+    let data = find_elem('notif-search').value;
+    document.querySelectorAll('.notif-div').forEach((notif) => {
+        if (notif.getAttribute('project-name').toLowerCase().includes(data.toLowerCase())) {
+            notif.style.display = 'block';
+        } else {
+            notif.style.display = 'none';
+        }
+    })
+}

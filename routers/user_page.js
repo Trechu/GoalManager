@@ -206,6 +206,29 @@ router.post('/user/add/member', async (request, response) => {
                 await client.close();
                 return;
             }
+
+            for(let invite of document["notifications"]){
+                if(invite["project id"] == requestBody.project_id && !invite["disable"]){
+                    response.send('User invite pending');
+                    await client.close();
+                    return;
+                }
+            }
+
+            const project_collection = db.collection(process.env.PROJECTCOLLECTION);
+            const project = await project_collection.findOne({ _id: new ObjectId(requestBody.project_id)});
+            
+            if(project==undefined){
+                response.send('Post does not exist');
+                await client.close();
+                return;
+            }
+
+            if(project["members"].includes(requestBody.member_name)){
+                response.send('User has already been added');
+                await client.close();
+                return;
+            }
             
             const notif = {};
             const date = new Date();
@@ -213,13 +236,14 @@ router.post('/user/add/member', async (request, response) => {
             notif["description"] = "You have been invited to join " + requestBody.project_name;
             notif["date"] = (new Date()).toLocaleDateString() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
             notif["read"] = false;
+            notif["disable"] = false;
             notif["project id"] = requestBody.project_id; 
 
             var new_notifs = document.notifications;
             new_notifs.push(notif);
             await collection.updateOne({ username: requestBody.member_name }, {$set: {notifications: new_notifs}});
             await client.close();
-            response.send('OK');
+            response.send('User successfully invited');
         } catch (err) {
             console.error(err);
         }

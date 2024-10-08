@@ -10,7 +10,8 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Goal Manager</title>
-    <link rel="stylesheet" href="/details.css"></link>
+    <link rel="stylesheet" href="/details.css">
+    </link>
 </head>
 
 <body style="background-color: #0D001A;">
@@ -19,224 +20,315 @@
 
         <div class="d-flex flex-row">
             <%- include('sidebar.ejs'); %>
-            <div id="viewing-section"
-                style="padding: 1%; margin-left: 1em; margin-top: 40px; width: 87em; height: 44em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); text-align: left; overflow-y: scroll;">
-                <div id="opened-project">
-                    <div style="display: flex;">
-                        <h1 id="project-title" style="width: 90%;"><%= project["project name"] %></h1>
-                        <div class="nav-btn"
-                        style=" margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px; margin: auto;"
-                        onclick="close_project()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 12px; margin-left: 9px">
-                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
-                        </svg>
-                        
-                    </div>
-                    </div>
-                    <span id="project-description"><%= project["project description"]  %></span>
-                    <div style="margin-top: 10px; width: 23em; height: 3em; padding: 0.7em; display: flex; flex-direction: row;">
-                        <span style="margin-right: 6px; user-select: none;">Members</span>
-                        <% for(let i = 0; i < project["members"].length; i++){ %>
-                            <% if(i <2) { %>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-person-circle" viewBox="0 0 16 16" style="margin-left: -2px; margin-right: -2px; margin-top: 3px;">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path fill-rule="evenodd"
-                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                            </svg>
-                            <% } %>
-                            <% if (i==2){ %>
-                                <div style="margin-left: 5px; height: 1.7em; width: fit-content; border-radius: 10px;">
-                                    +<%= project["members"].length - 2%>
-                                </div>
-                            <% } %>
-                            <% if (i >2) {break;} %>
-                        <% } %>
-                        <div class="nav-btn" style="width: fit-content; height: fit-content; margin-left: 5px; border-radius: 5px;" data-toggle="modal" data-target="#membersModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chevron-expand" viewBox="0 0 16 16" style="margin-top: -4px;">
-                                <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708m0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708"/>
-                              </svg>
-                              
-                        </div>
-                        <div class="nav-btn" style="margin: auto; border-radius: 10px; padding: 0.5em; margin-top: -8px; user-select: none;" data-toggle="modal" data-target="#memberModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                              </svg>
-                              Invite Members
-                        </div>
-                        
-                    </div>
-                    <hr style="background-color: aliceblue;" />
-                    <div class="wrapped" style="display: flex; flex-direction: row;">
-                        <div class="btn-add" style="user-select: none; width: 7em; margin-bottom: 1em; margin-left: 1em; padding: 0.5em; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 2 px rgb(56, 55, 55); background-color: rgb(174, 157, 91);" data-toggle="modal" data-target="#goalModal">
-                            Add Goal
-                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -3px; margin-left: 5px;" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                            </svg>
-                        </div>
-                        <div style="width: 15em; height: 2.5em; margin-left: 2em; display: flex; flex-direction: row;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="margin: auto;">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                            <input id="goal-search" class="form-control" type='text' name='search' placeholder="Search..."  style="width: 80%; margin: auto; background-color:rgba(0,0,0,0) !important; border:none !important; color: aliceblue;" onkeyup="handle_search_bar()">
-                        </div>
-                    </div>
-                    <% let i = 0 %>
-                    <% for(goal of project.goals){ %>
-                        <div class="goal-view" goal-name="<%= goal["goal name"] %>">
-                            <div style="display: flex; text-align: center; width: 95%; margin: auto; margin-bottom: 15px; font-size: 18px;" data-toggle="collapse" href="#collapse<%= i %>" role="button" aria-expanded="false" aria-controls="collapse<%= i %>">
-                                <div style="width: 2%; border-top-left-radius: 10px; border-bottom-left-radius: 10px;" class="fancy-bar">
-                                    <div class="arrow-down" style="margin-top: 25px; margin-left: 7px;"></div>
-                                </div>
-                                <div style="width: 16%; padding: 1%;"><%= goal["goal name"] %></div>
-                                <div style="width: 25%; padding: 1%;">Task</div>
-                                <div style="width: 17%; padding: 1%;">Status</div>
-                                <div style="width: 20%; padding: 1%;">Due date</div>
-                                <div style="width: 18%; padding: 1%;">Cost</div>
-                                <div style="width: 2%; background-color: #332340; border-top-right-radius: 10px; border-bottom-right-radius: 10px;"></div>
+                <div id="viewing-section"
+                    style="padding: 1%; margin-left: 1em; margin-top: 40px; width: 87em; height: 44em; background-color: #1E1526; border-radius: 10px; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); text-align: left; overflow-y: scroll;">
+                    <div id="opened-project">
+                        <div style="display: flex;">
+                            <h1 id="project-title" style="width: 90%;">
+                                <%= project["project name"] %>
+                            </h1>
+                            <div class="nav-btn"
+                                style=" margin-bottom: 1em; width: 50px; height: 50px; border-radius: 5px; margin: auto;"
+                                onclick="close_project()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-arrow-return-left" viewBox="0 0 16 16"
+                                    style="margin-top: 12px; margin-left: 9px">
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                                </svg>
+
                             </div>
-                            <div class="collapse" id="collapse<%= i %>">
-                                <% for(step of goal.steps){ %>
-                                    <div id="stepDiv" style="text-align: left; display: flex; flex-direction: row; width: 95%; height: 3.5em; margin: auto; background-color: #332340; padding: 0.5em; text-overflow: ellipsis; overflow: hidden; border-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
-                                        <div class="wrapped" style="width: 5%; margin: auto;">
-                                            <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2em; border-radius: 5px; margin: auto; text-align: center;" class="nav-btn-alt">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </div>
+                        <span id="project-description">
+                            <%= project["project description"] %>
+                        </span>
+                        <div
+                            style="margin-top: 10px; width: 23em; height: 3em; padding: 0.7em; display: flex; flex-direction: row;">
+                            <span style="margin-right: 6px; user-select: none;">Members</span>
+                            <% for(let i=0; i < project["members"].length; i++){ %>
+                                <% if(i <2) { %>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-person-circle" viewBox="0 0 16 16"
+                                        style="margin-left: -2px; margin-right: -2px; margin-top: 3px;">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                    </svg>
+                                    <% } %>
+                                        <% if (i==2){ %>
+                                            <div
+                                                style="margin-left: 5px; height: 1.7em; width: fit-content; border-radius: 10px;">
+                                                +<%= project["members"].length - 2%>
+                                            </div>
+                                            <% } %>
+                                                <% if (i>2) {break;} %>
+                                                    <% } %>
+                                                        <div class="nav-btn"
+                                                            style="width: fit-content; height: fit-content; margin-left: 5px; border-radius: 5px;"
+                                                            data-toggle="modal" data-target="#membersModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                height="25" fill="currentColor"
+                                                                class="bi bi-chevron-expand" viewBox="0 0 16 16"
+                                                                style="margin-top: -4px;">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708m0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708" />
+                                                            </svg>
+
+                                                        </div>
+                                                        <div class="nav-btn"
+                                                            style="margin: auto; border-radius: 10px; padding: 0.5em; margin-top: -8px; user-select: none;"
+                                                            data-toggle="modal" data-target="#memberModal">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                height="25" fill="currentColor"
+                                                                class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                                <path
+                                                                    d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                                                            </svg>
+                                                            Invite Members
+                                                        </div>
+
+                        </div>
+                        <hr style="background-color: aliceblue;" />
+                        <div class="wrapped" style="display: flex; flex-direction: row;">
+                            <div class="btn-add"
+                                style="user-select: none; width: 7em; margin-bottom: 1em; margin-left: 1em; padding: 0.5em; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 2 px rgb(56, 55, 55); background-color: rgba(8, 1, 16, 0.833);"
+                                data-toggle="modal" data-target="#goalModal">
+                                Add Goal
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -3px; margin-left: 5px;"
+                                    width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                </svg>
+                            </div>
+                            <div
+                                style="width: 15em; height: 2.5em; margin-left: 2em; display: flex; flex-direction: row;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16" style="margin: auto;">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                                <input id="goal-search" class="form-control" type='text' name='search'
+                                    placeholder="Search..."
+                                    style="width: 80%; margin: auto; background-color:rgba(0,0,0,0) !important; border:none !important; color: aliceblue;"
+                                    onkeyup="handle_search_bar()">
+                            </div>
+                        </div>
+                        <% let i=0 %>
+                            <% for(goal of project.goals){ %>
+                                <div class="goal-view" goal-name="<%= goal["goal name"] %>">
+                                    <div style="display: flex; text-align: center; width: 95%; margin: auto; margin-bottom: 15px; font-size: 18px; cursor: pointer;"
+                                        data-toggle="collapse" href="#collapse<%= i %>" role="button"
+                                        aria-expanded="false" aria-controls="collapse<%= i %>">
+                                        <div style="width: 2%; border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                                            class="fancy-bar">
+                                        </div>
+                                        <div style="width: 16%; padding: 1%;">
+                                            <%= goal["goal name"] %>
+                                        </div>
+                                        <div style="width: 25%; padding: 1%;">Task</div>
+                                        <div style="width: 17%; padding: 1%;">Status</div>
+                                        <div style="width: 20%; padding: 1%;">Due date</div>
+                                        <div style="width: 18%; padding: 1%;">Cost</div>
+                                        <div
+                                            style="width: 2%; background-color: #332340; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="collapse<%= i %>">
+                                        <% for(step of goal.steps){ %>
+                                            <div id="stepDiv"
+                                                style="text-align: left; display: flex; flex-direction: row; width: 95%; height: 3.5em; margin: auto; background-color: #332340; padding: 0.5em; text-overflow: ellipsis; overflow: hidden; border-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
+                                                <div class="wrapped" style="width: 5%; margin: auto;">
+                                                    <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2em; border-radius: 5px; margin: auto; text-align: center;"
+                                                        class="nav-btn-alt">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-three-dots"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="<%= step["step name"] %>"><%= step["step name"] %>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="wrapped" style="width: 25%; margin: auto; font-size: 15px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="<%= step["step description"] %>"><%= step["step description"] %>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="wrapped"
+                                                    style="width: 15%; margin: auto; font-size: 14px; margin-top: -5px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="<%= step["status"] %>">
+                                                    <div class="wrapped"
+                                                        style="width: 90%; height: 2.5em; margin: auto; border-radius: 10px; text-align: center;"
+                                                        data-status="<%= step["status"] %>">
+                                                        <%= step["status"] %>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="wrapped" style="width: 20%; margin: auto; font-size: 15px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="<%= step["due date"] %>"><%= step["due date"] %>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="<%= step["cost"] %>"><%= step["cost"] %>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div style="width: 5%; margin: auto;"></div>
+                                            </div>
+                                            <% } %>
+                                                <div id="postStep"
+                                                    style="padding: 0.2%; width: 2.5em; height: 2.5em; border-radius: 5px; margin-left: 3%; margin-bottom: 30px;"
+                                                    class="nav-btn" data-toggle="modal" data-target="#stepModal"
+                                                    onclick="set_goal_name('<%= goal[`goal name`] %>')">
+                                                    <svg style="margin-left: 9px; margin-top: 7px;"
+                                                        xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                        fill="currentColor" class="bi bi-plus-square"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                                        <path
+                                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                                    </svg>
+                                                </div>
+                                    </div>
+                                </div>
+                                <% i++ %>
+                                <% } %>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="stepModal" tabindex="-1" role="dialog" aria-labelledby="stepModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background-color: #1E1526;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="margin-right: 5px;">Create new step for</h5>
+                                <h5 class="modal-title" id="stepModalTitle"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: aliceblue;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="display: flex; flex-direction: column;">
+                                <label for="name" style="align-self: start; font-size: large;">Step name</label>
+                                <input id="step-name" autocomplete="off" type="text" name="name"
+                                    style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                                <label for="description" style="align-self: start; font-size: large;">Task
+                                    description</label>
+                                <textarea id="step-desc" name="description" rows="3"
+                                    style="resize: none; width: 25em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); margin-bottom: 1em;"></textarea>
+                                <label for="status" style=" font-size: large;">Step status</label>
+                                <select name="status" id="step-status"
+                                    style="margin: auto; margin-bottom: 1em; width: 8em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                                    <option value="Completed">Completed</option>
+                                    <option value="In progress">In progress</option>
+                                    <option value="Suspended">Suspended</option>
+                                </select>
+                                <label for="date" style="font-size: large;">Due date</label>
+                                <input type="date" id="step-date" name="date" value="2024-01-01" min="2024-01-01"
+                                    max="2025-12-31"
+                                    style="margin: auto; margin-bottom: 1em; width: 8em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);" />
+                                <label for="cost" style="align-self: start; font-size: large;">Step cost</label>
+                                <input id="step-cost" autocomplete="off" type="text" name="cost"
+                                    style="width: 8em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    style="font-size: large; width: 30%; border-radius: 10px;"
+                                    onclick="create_step_request()">Add step</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="goalModal" tabindex="-1" role="dialog" aria-labelledby="goalModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background-color: #1E1526;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="goalModalTitle">Create new Goal for <%= project["project name"] %>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: aliceblue;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="display: flex; flex-direction: column;">
+                                <label for="goal" style="align-self: start; font-size: large;">Goal name</label>
+                                <input id="goal-name" autocomplete="off" type="text" name="goal"
+                                    style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    style="font-size: large; width: 30%; border-radius: 10px;"
+                                    onclick="create_goal_request()">Add goal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background-color: #1E1526;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="goalModalTitle">Add new member to <%= project["project name"] %>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: aliceblue;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="display: flex; flex-direction: column;">
+                                <label for="member" style="align-self: start; font-size: large;">Member name</label>
+                                <input id="member-name" autocomplete="off" type="text" name="member"
+                                    style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    style="font-size: large; width: 30%; border-radius: 10px;"
+                                    onclick="add_member_request('<%= project[`project name`] %>')">Add member</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="membersModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background-color: #1E1526;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Project members</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: aliceblue;">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="display: flex; flex-direction: column;">
+                                <% for(member of project["members"]){ %>
+                                    <div style="margin-bottom: 0.7em; display: flex; flex-direction: row;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                            <path fill-rule="evenodd"
+                                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                        </svg>
+                                        <span style="margin-left: 0.5em;">
+                                            <%= member %>
+                                                <% if(project["owner"]==member){ %>
+                                                    [ OWNER ]
+                                                    <% } %>
+                                        </span>
+                                        <div style="margin-left: 0.5em; padding: 0.1%; width: 2em; height: 1.5em; border-radius: 5px;"
+                                            class="nav-btn-alt">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"
+                                                style="margin-top: -5px;">
+                                                <path
+                                                    d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                                             </svg>
                                         </div>
                                     </div>
-                                    <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["step name"] %>"><%= step["step name"] %></div>
-                                    <div class="divider"></div>
-                                    <div class="wrapped" style="width: 25%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["step description"] %>"><%= step["step description"] %></div>
-                                    <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 14px; margin-top: -5px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["status"] %>">
-                                        <div class="wrapped" style="width: 90%; height: 2.5em; margin: auto; border-radius: 10px; text-align: center;" data-status="<%= step["status"] %>">
-                                            <%= step["status"] %>
-                                        </div>
-                                    </div>
-                                    <div class="divider"></div>
-                                    <div class="wrapped" style="width: 20%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["due date"] %>"><%= step["due date"] %></div>
-                                    <div class="divider"></div>
-                                    <div class="wrapped" style="width: 15%; margin: auto; font-size: 15px;" data-toggle="tooltip" data-placement="bottom" title="<%= step["cost"] %>"><%= step["cost"] %></div>
-                                    <div class="divider"></div>
-                                    <div style="width: 5%; margin: auto;"></div>
-                                </div>
-                                <% } %>
-                                <div id="postStep" style="padding: 0.2%; width: 2.5em; height: 2.5em; border-radius: 5px; margin-left: 3%; margin-bottom: 30px;" class="nav-btn" data-toggle="modal" data-target="#stepModal" onclick="set_goal_name('<%= goal[`goal name`] %>')">
-                                    <svg style="margin-left: 9px; margin-top: 7px;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>
-                                </div>
+                                    <% } %>
                             </div>
                         </div>
-                    <% i++ %>
-                    <% } %>
+                    </div>
                 </div>
-            </div>
-
-            <div class="modal fade" id="stepModal" tabindex="-1" role="dialog" aria-labelledby="stepModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content" style="background-color: #1E1526;">
-                    <div class="modal-header">
-                        <h5 class="modal-title" style="margin-right: 5px;">Create new step for</h5>
-                        <h5 class="modal-title" id="stepModalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: aliceblue;">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column;">
-                        <label for="name" style="align-self: start; font-size: large;">Step name</label>
-                        <input id="step-name" autocomplete="off" type="text" name="name" style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-                        <label for="description" style="align-self: start; font-size: large;">Task description</label>
-                        <textarea id="step-desc" name="description" rows="3" style="resize: none; width: 25em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1); margin-bottom: 1em;" ></textarea>
-                        <label for="status" style=" font-size: large;">Step status</label>
-                        <select name="status" id="step-status" style="margin: auto; margin-bottom: 1em; width: 8em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-                        <option value="Completed">Completed</option>
-                        <option value="In progress">In progress</option>
-                        <option value="Suspended">Suspended</option>
-                        </select>
-                        <label for="date" style="font-size: large;">Due date</label>
-                        <input type="date" id="step-date" name="date" value="2024-01-01" min="2024-01-01" max="2025-12-31" style="margin: auto; margin-bottom: 1em; width: 8em; background-color: #0D001A; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);" />
-                        <label for="cost" style="align-self: start; font-size: large;">Step cost</label>
-                        <input id="step-cost" autocomplete="off" type="text" name="cost" style="width: 8em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-                        <button type="button" class="btn btn-sm btn-primary" style="font-size: large; width: 30%; border-radius: 10px;" onclick="create_step_request()">Add step</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal fade" id="goalModal" tabindex="-1" role="dialog" aria-labelledby="goalModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content" style="background-color: #1E1526;">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="goalModalTitle">Create new Goal for <%= project["project name"] %></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: aliceblue;">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column;">
-                        <label for="goal" style="align-self: start; font-size: large;">Goal name</label>
-                        <input id="goal-name" autocomplete="off" type="text" name="goal" style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-                        <button type="button" class="btn btn-sm btn-primary" style="font-size: large; width: 30%; border-radius: 10px;" onclick="create_goal_request()">Add goal</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content" style="background-color: #1E1526;">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="goalModalTitle">Add new member to <%= project["project name"] %></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: aliceblue;">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column;">
-                        <label for="member" style="align-self: start; font-size: large;">Member name</label>
-                        <input id="member-name" autocomplete="off" type="text" name="member" style="width: 20em; background-color: #0D001A; margin-bottom: 1em; color: aliceblue; border-radius: 10px; border-style: none; box-shadow: 0px 0px 0px 1px rgba(43, 42, 42, 1);">
-                        <button type="button" class="btn btn-sm btn-primary" style="font-size: large; width: 30%; border-radius: 10px;" onclick="add_member_request('<%= project[`project name`] %>')">Add member</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal fade" id="membersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content" style="background-color: #1E1526;">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Project members</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: aliceblue;">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column;">
-                        <% for(member of project["members"]){ %>
-                            <div style="margin-bottom: 0.7em; display: flex; flex-direction: row;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                <path fill-rule="evenodd"
-                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                </svg>
-                                <span style="margin-left: 0.5em;">
-                                    <%= member %> <% if(project["owner"] == member){ %>
-                                        [ OWNER ]
-                                    <% } %>
-                                </span>
-                                <div style="margin-left: 0.5em; padding: 0.1%; width: 2em; height: 1.5em; border-radius: 5px;" class="nav-btn-alt" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16" style="margin-top: -5px;">
-                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        <% } %>
-                    </div>
-                  </div>
-                </div>
-              </div>
         </div>
     </div>
 

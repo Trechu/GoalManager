@@ -27,10 +27,12 @@
 
 .nav-btn:hover {
     background-color: #332340;
+    cursor: pointer;
 }
 
 .nav-btn-alt:hover {
     background-color: #4a325d;
+    cursor: pointer;
 }
 
 .open-btn {
@@ -47,6 +49,7 @@
 
 .close-btn:hover {
     background-color: rgb(81,56,102, 0.9);
+    cursor: pointer;
 }
 
 [notif-status="true"] {
@@ -59,7 +62,8 @@
 }
 
 .btn-add:hover {
-    background-color: rgb(165, 147, 77) !important;
+    background-color: rgba(8, 1, 16, 0.593) !important;
+    cursor: pointer;
 }
 
 .divider {
@@ -93,10 +97,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-right: 20px !important; 
 }
 
-.arrow-down {
-    width: 0; 
-    height: 0; 
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #1E1526;
+.notif-card:hover {
+    background-color: rgb(55, 43, 67, 0.5) !important;
+}
+
+.accept-btn:hover {
+    background-color: rgba(29, 102, 29, 0.5);
+    cursor: pointer;
+}
+
+.decline-btn:hover {
+    background-color: rgb(141, 21, 21, 0.5);
+    cursor: pointer;
 }
