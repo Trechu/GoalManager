@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="notif-section">
-                        <% for(let notif of notifications){ %>
+                        <% for(let notif of notifications.reverse()){ %>
                             <div project-name="<%= notif["description"].substring(30)%>" class="notif-div">
                                 <div notif-status="<%= !notif["read"] %>" style="position: absolute; margin-left: 15px;
                                     border-radius: 50%; width: 0.8em; height: 0.8em;"></div>
@@ -52,24 +52,30 @@
                                     </div>
                                     <div class="divider"></div>
                                     <div class="wrapped" style="width: 20%; margin: auto; font-size: 15px;"
-                                        data-toggle="tooltip" data-placement="bottom" title="<%= notif[" date"] %>"><%=
+                                        data-toggle="tooltip" data-placement="bottom" title="<%= notif["date"] %>"><%=
                                             notif["date"] %>
                                     </div>
                                     <div class="divider"></div>
                                     <div class="wrapped"
                                         style=" width: 30%; margin: auto; font-size: 14px; margin-top: -5px; display: flex; flex-direction: row; user-select: none;">
-                                        <% if(!notif["disabled"]){ %>
-                                            <div class="wrapped accept-btn"
+                                        <% if(!notif["disable"]){ %>
+                                            <div class="wrapped accept-btn" onclick="resolve_request('<%= notif[`notif_id`] %>', 'Accepted')"
                                                 style="padding: 0.35em; width: 40%; height: 2.5em; margin: auto; border-radius: 10px; border-style: solid; border-color: darkgreen; border-width: 2px; text-align: center;"
                                                 data-toggle="tooltip" data-placement="bottom" title="Accept">
                                                 Accept
                                             </div>
-                                            <div class="wrapped decline-btn"
+                                            <div class="wrapped decline-btn" onclick="deny_request('<%= notif[`notif_id`] %>', 'Declined')"
                                                 style="padding: 0.35em; width: 40%; height: 2.5em; margin: auto; border-radius: 10px; border-style: solid; border-color: darkred; border-width: 2px; text-align: center;"
                                                 data-toggle="tooltip" data-placement="bottom" title="Decline">
                                                 Decline
                                             </div>
-                                            <% } %>
+                                            <% } else { %>
+                                                <div class="wrapped"
+                                                    style="padding: 0.35em; width: 80%; height: 2.5em; margin: auto; border-radius: 10px; border-style: solid; border-color: rgb(51, 49, 49); border-width: 2px; text-align: center;"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Decline">
+                                                    Request resolved
+                                                </div>
+                                                <% } %>
                                     </div>
                                 </div>
                             </div>

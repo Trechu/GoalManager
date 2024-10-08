@@ -250,4 +250,32 @@ router.post('/user/add/member', async (request, response) => {
     })
 })
 
+router.post('/user/resolve/member', async (request, response) => {
+    request.on('data', async function (data){
+        const client = new MongoClient(process.env.LINK);
+        try {
+            var requestBody = JSON.parse(data.toString('utf8'));
+            await client.connect();
+            const db = client.db(process.env.DBNAME);
+            const collection = db.collection(process.env.USERCOLLECTION);
+            let objid = new ObjectId(requestBody.notif_id);
+            const document = await collection.findOneAndUpdate({"notifications.notif_id": objid}, {$set: {"notifications.$.read": true, "notifications.$.disable": true}})
+            if(requestBody.status=="Accepted"){
+                for(let notif of document["notifications"]){
+                    if(notif["notif_id"].equals(objid)){
+                        const projects = db.collection(process.env.PROJECTCOLLECTION);
+                        await projects.updateOne({"_id": new ObjectId(notif["project id"])}, {$push: {"members": request.user.username}})
+                    }
+                }
+            }
+            
+            await client.close();
+            response.send('Ok');
+            return;
+        } catch (err) {
+            console.error(err);
+        }
+    })
+})
+
 export default router;

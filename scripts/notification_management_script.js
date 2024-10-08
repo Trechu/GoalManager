@@ -32,3 +32,14 @@ function handle_search_bar() {
         }
     })
 }
+
+function resolve_request(_id, decision){
+    fetch("http://localhost:3001/user/resolve/member", {
+        method: "POST",
+        body: JSON.stringify({
+            notif_id: _id, status: decision
+        })
+    }).then(response => {
+        window.location.reload();
+    });
+}

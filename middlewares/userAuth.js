@@ -8,7 +8,6 @@ const authUser = async (username, password, done) => {
     try {
         await client.connect();
 
-        // Change accordingly to db structure
         const db = client.db(process.env.DBNAME);
         const collection = db.collection('user');
         
@@ -29,7 +28,6 @@ const authUser = async (username, password, done) => {
                 }
             });
         } else {
-            console.log('Login unsuccessfull');
             return done(null,false);
         }
     } catch(err) {
